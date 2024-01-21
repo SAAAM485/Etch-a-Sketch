@@ -32,7 +32,6 @@ createGrid(value);
 function clearGrid() {
     let rows = document.querySelectorAll(".row");
     let cells = document.querySelectorAll(".cell");
-
     cells.forEach(cell => {
         cell.remove();
     });
@@ -41,9 +40,21 @@ function clearGrid() {
     });
 }
 
+function addMouseover(){
+    let cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+        cell.addEventListener("mouseover", () => {
+            cell.setAttribute("class", "isHovered");
+        })
+    }); 
+}
+
+addMouseover();
+
 
 btn.addEventListener("click", () => {
     clearGrid();
     x = prompt("? x ? do you want?", 16);
     createGrid(x);
+    addMouseover();
 })
