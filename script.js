@@ -8,8 +8,19 @@ container.appendChild(leftPanel);
 container.appendChild(rightPanel);
 
 const btn = document.createElement("button");
+btn.setAttribute("class", "btn")
 btn.textContent = "How many?";
 leftPanel.appendChild(btn);
+
+const rainbowBtn = document.createElement("button");
+rainbowBtn.setAttribute("class", "btn")
+rainbowBtn.textContent = "Rainbow Mode";
+leftPanel.appendChild(rainbowBtn);
+
+const clearBtn = document.createElement("button");
+clearBtn.setAttribute("class", "btn")
+clearBtn.textContent = "Clear";
+leftPanel.appendChild(clearBtn);
 
 let value = 16;
 
@@ -40,6 +51,13 @@ function clearGrid() {
     });
 }
 
+function clearHovered() {
+    let isHovered = document.querySelectorAll(".isHovered");
+    isHovered.forEach(cell => {
+        cell.setAttribute("class", "cell")
+    });
+}
+
 function addMouseover(){
     let cells = document.querySelectorAll(".cell");
     cells.forEach(cell => {
@@ -57,4 +75,9 @@ btn.addEventListener("click", () => {
     x = prompt("? x ? do you want?", 16);
     createGrid(x);
     addMouseover();
-})
+});
+
+clearBtn.addEventListener("click", () => {
+    console.log("clear");
+    clearHovered()
+});
