@@ -12,6 +12,11 @@ btn.setAttribute("class", "btn")
 btn.textContent = "How many?";
 leftPanel.appendChild(btn);
 
+const normalBtn = document.createElement("button");
+normalBtn.setAttribute("class", "btn")
+normalBtn.textContent = "Normal Mode";
+leftPanel.appendChild(normalBtn);
+
 const rainbowBtn = document.createElement("button");
 rainbowBtn.setAttribute("class", "btn")
 rainbowBtn.textContent = "Rainbow Mode";
@@ -54,30 +59,68 @@ function clearGrid() {
 function clearHovered() {
     let isHovered = document.querySelectorAll(".isHovered");
     isHovered.forEach(cell => {
-        cell.setAttribute("class", "cell")
+        cell.classList.remove("isHovered");
     });
+}
+
+function clearColored() {
+    let colored = document.querySelectorAll(".colored")
+    colored.forEach(cell => {
+        cell.style.backgroundColor = "white";
+        cell.classList.remove("colored")
+    })
 }
 
 function addMouseover(){
     let cells = document.querySelectorAll(".cell");
     cells.forEach(cell => {
         cell.addEventListener("mouseover", () => {
-            cell.setAttribute("class", "isHovered");
+            cell.classList.add("isHovered");
         })
     }); 
 }
 
 addMouseover();
 
+function randomColor() {
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    let randomColor = `rgb(${r}, ${g}, ${b})`;
+    return randomColor;
+}
+
+function raibowMode() {
+    let cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+        cell.addEventListener("mouseover", () => {
+            cell.classList.add("colored");
+            cell.style.backgroundColor = randomColor();
+        })
+    });
+}
+
 
 btn.addEventListener("click", () => {
     clearGrid();
-    x = prompt("? x ? do you want?", 16);
-    createGrid(x);
+    value = prompt("? x ? do you want?", 16);
+    createGrid(value);
     addMouseover();
 });
 
+normalBtn.addEventListener("click", () => {
+    clearGrid();
+    createGrid(value);
+    addMouseover();
+})
+
+rainbowBtn.addEventListener("click", () => {  
+    clearGrid();
+    createGrid(value);
+    raibowMode();
+})
+
 clearBtn.addEventListener("click", () => {
-    console.log("clear");
-    clearHovered()
+    clearHovered();
+    clearColored();
 });
